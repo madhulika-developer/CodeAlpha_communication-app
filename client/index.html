@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexusMeet — Real-Time Video Conferencing & Collaboration</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236366F1'><path d='M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z'/></svg>">
+</head>
+<body>
+  <div class="landing-container">
+    <!-- Navbar -->
+    <header class="landing-nav">
+      <a href="/" class="brand">
+        <div class="brand-icon">
+          <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+          </svg>
+        </div>
+        <span>NexusMeet</span>
+      </a>
+
+      <div id="userNavSection">
+        <!-- Rendered dynamically via JS -->
+      </div>
+    </header>
+
+    <!-- Hero Content -->
+    <main class="hero-section">
+      <div class="hero-left">
+        <div class="hero-badge">
+          <span>⚡ WebRTC & E2EE Powered</span>
+        </div>
+        <h1 class="hero-title">
+          Connect, collaborate, and create in <span>real-time</span>.
+        </h1>
+        <p class="hero-desc">
+          High-definition multi-user video calling, fluid screen sharing, collaborative whiteboarding, and secure P2P file transfers — protected by end-to-end encryption.
+        </p>
+
+        <div class="feature-pill-grid">
+          <div class="feature-pill">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            <span>Multi-User WebRTC</span>
+          </div>
+          <div class="feature-pill">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <span>HD Screen Share</span>
+          </div>
+          <div class="feature-pill">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+            <span>Live Whiteboard</span>
+          </div>
+          <div class="feature-pill">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            <span>AES-GCM Encryption</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Card -->
+      <div class="action-card">
+        <div class="tab-nav">
+          <button class="tab-btn active" id="tabLobby">Start Meeting</button>
+          <button class="tab-btn" id="tabAuth">Account</button>
+        </div>
+
+        <!-- Meeting Lobby View -->
+        <div id="viewLobby">
+          <form id="createRoomForm">
+            <div class="form-group">
+              <label class="form-label" for="roomName">Meeting Topic</label>
+              <input type="text" class="form-input" id="roomName" placeholder="e.g. Design Sprint & Standup" required value="Product Sync">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="roomPasscode">Meeting Passcode (Optional)</label>
+              <input type="password" class="form-input" id="roomPasscode" placeholder="Leave empty for open access">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block" style="margin-bottom: 1rem;">
+              <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+              <span>Create New Meeting</span>
+            </button>
+          </form>
+
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin: 1.25rem 0;">
+            <div style="flex: 1; height: 1px; background: var(--border);"></div>
+            <span style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">or join existing</span>
+            <div style="flex: 1; height: 1px; background: var(--border);"></div>
+          </div>
+
+          <form id="joinRoomForm" style="display: flex; gap: 0.5rem;">
+            <input type="text" class="form-input" id="joinRoomId" placeholder="Enter Room ID (e.g. abc-defg-hij)" required>
+            <button type="submit" class="btn btn-secondary">Join</button>
+          </form>
+        </div>
+
+        <!-- Auth View -->
+        <div id="viewAuth" style="display: none;">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem;">
+            <button class="btn btn-secondary btn-block" id="subTabLogin" style="background: var(--bg-card-hover);">Sign In</button>
+            <button class="btn btn-secondary btn-block" id="subTabRegister">Sign Up</button>
+          </div>
+
+          <!-- Login Form -->
+          <form id="loginForm">
+            <div class="form-group">
+              <label class="form-label" for="loginUsername">Username</label>
+              <input type="text" class="form-input" id="loginUsername" required placeholder="yourusername">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="loginPassword">Password</label>
+              <input type="password" class="form-input" id="loginPassword" required placeholder="••••••••">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+          </form>
+
+          <!-- Register Form -->
+          <form id="registerForm" style="display: none;">
+            <div class="form-group">
+              <label class="form-label" for="regName">Display Name</label>
+              <input type="text" class="form-input" id="regName" required placeholder="e.g. Alex Taylor">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="regUsername">Username</label>
+              <input type="text" class="form-input" id="regUsername" required placeholder="alextaylor">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="regEmail">Email Address</label>
+              <input type="email" class="form-input" id="regEmail" required placeholder="alex@example.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="regPassword">Password (6+ chars)</label>
+              <input type="password" class="form-input" id="regPassword" minlength="6" required placeholder="••••••••">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="/js/auth.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderNavUser();
+
+      // Tab Switching
+      const tabLobby = document.getElementById("tabLobby");
+      const tabAuth = document.getElementById("tabAuth");
+      const viewLobby = document.getElementById("viewLobby");
+      const viewAuth = document.getElementById("viewAuth");
+
+      tabLobby.addEventListener("click", () => {
+        tabLobby.classList.add("active");
+        tabAuth.classList.remove("active");
+        viewLobby.style.display = "block";
+        viewAuth.style.display = "none";
+      });
+
+      tabAuth.addEventListener("click", () => {
+        tabAuth.classList.add("active");
+        tabLobby.classList.remove("active");
+        viewAuth.style.display = "block";
+        viewLobby.style.display = "none";
+      });
+
+      // Sub-tabs in Auth
+      const subTabLogin = document.getElementById("subTabLogin");
+      const subTabRegister = document.getElementById("subTabRegister");
+      const loginForm = document.getElementById("loginForm");
+      const registerForm = document.getElementById("registerForm");
+
+      subTabLogin.addEventListener("click", () => {
+        subTabLogin.style.background = "var(--bg-card-hover)";
+        subTabRegister.style.background = "var(--bg-card)";
+        loginForm.style.display = "block";
+        registerForm.style.display = "none";
+      });
+
+      subTabRegister.addEventListener("click", () => {
+        subTabRegister.style.background = "var(--bg-card-hover)";
+        subTabLogin.style.background = "var(--bg-card)";
+        registerForm.style.display = "block";
+        loginForm.style.display = "none";
+      });
+
+      // Create Room
+      document.getElementById("createRoomForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const name = document.getElementById("roomName").value;
+        const passcode = document.getElementById("roomPasscode").value || null;
+
+        try {
+          const res = await fetch("/api/rooms", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              ...(Auth.getToken() ? { "Authorization": `Bearer ${Auth.getToken()}` } : {})
+            },
+            body: JSON.stringify({ name, passcode })
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.detail || "Room creation failed");
+          window.location.href = `/room/${data.room_id}`;
+        } catch (err) {
+          alert("Error: " + err.message);
+        }
+      });
+
+      // Join Room
+      document.getElementById("joinRoomForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const id = document.getElementById("joinRoomId").value.trim();
+        if (id) {
+          window.location.href = `/room/${encodeURIComponent(id)}`;
+        }
+      });
+
+      // Login Form submit
+      loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const u = document.getElementById("loginUsername").value;
+        const p = document.getElementById("loginPassword").value;
+        try {
+          const user = await Auth.login(u, p);
+          showToast(`Welcome back, ${user.display_name}!`);
+          renderNavUser();
+          tabLobby.click();
+        } catch (err) {
+          alert("Login error: " + err.message);
+        }
+      });
+
+      // Register Form submit
+      registerForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const name = document.getElementById("regName").value;
+        const u = document.getElementById("regUsername").value;
+        const em = document.getElementById("regEmail").value;
+        const p = document.getElementById("regPassword").value;
+
+        try {
+          const user = await Auth.register(u, em, p, name);
+          showToast(`Account created! Welcome, ${user.display_name}!`);
+          renderNavUser();
+          tabLobby.click();
+        } catch (err) {
+          alert("Registration error: " + err.message);
+        }
+      });
+    });
+
+    function renderNavUser() {
+      const container = document.getElementById("userNavSection");
+      const user = Auth.getUser();
+
+      if (user) {
+        container.innerHTML = `
+          <div class="user-nav-badge">
+            <div class="user-nav-avatar" style="background-color: ${user.avatar_color || '#6366F1'};">
+              ${user.display_name.charAt(0).toUpperCase()}
+            </div>
+            <span style="font-size: 0.9rem; font-weight: 600;">${user.display_name}</span>
+            <button onclick="Auth.logout()" class="btn btn-secondary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; margin-left: 0.5rem;">Logout</button>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <button onclick="document.getElementById('tabAuth').click()" class="btn btn-secondary" style="padding: 0.4rem 0.85rem; font-size: 0.85rem;">
+            Sign In / Register
+          </button>
+        `;
+      }
+    }
+
+    function showToast(msg) {
+      const container = document.getElementById("toastContainer");
+      const toast = document.createElement("div");
+      toast.className = "toast";
+      toast.innerHTML = `<span>✔</span> <span>${msg}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 3500);
+    }
+  </script>
+</body>
+</html>
