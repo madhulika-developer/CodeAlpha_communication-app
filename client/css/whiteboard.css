@@ -1,0 +1,154 @@
+/* Whiteboard specific layout & toolbar styles */
+
+.wb-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #1a1e29;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.wb-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+/* Floating Toolbar */
+.wb-toolbar {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(17, 24, 39, 0.9);
+  backdrop-filter: blur(16px);
+  padding: 0.4rem 0.6rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  z-index: 30;
+}
+
+.wb-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+}
+
+.wb-btn:hover {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.wb-btn.active {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.6);
+}
+
+.wb-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border);
+  margin: 0 0.2rem;
+}
+
+/* Popover controls for colors and line width */
+.wb-popover {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  display: none;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 160px;
+  z-index: 40;
+}
+
+.wb-popover.open {
+  display: flex;
+}
+
+.color-palette {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.4rem;
+}
+
+.color-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform 0.15s ease;
+}
+.color-swatch:hover {
+  transform: scale(1.15);
+}
+.color-swatch.active {
+  border-color: white;
+  box-shadow: 0 0 6px white;
+}
+
+.size-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.size-slider-row input[type="range"] {
+  flex: 1;
+  accent-color: var(--primary);
+}
+
+/* Collaborative Remote Cursors */
+.remote-cursor {
+  position: absolute;
+  pointer-events: none;
+  z-index: 25;
+  transition: transform 0.05s linear;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.cursor-pointer {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.cursor-tag {
+  background: rgba(17, 24, 39, 0.85);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
